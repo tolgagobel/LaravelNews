@@ -17,4 +17,11 @@ class Category extends Model
     public function products(){
         return $this->belongsToMany(Product::class, 'category_products');
     }
+
+    public function up_category(){
+        return $this->belongsTo('App\Models\Category', 'up_id')->withDefault([
+            'category_name' => 'Ana Kategori'
+        ]);
+
+    }
 }

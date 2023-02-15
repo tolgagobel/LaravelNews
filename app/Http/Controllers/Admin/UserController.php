@@ -49,9 +49,18 @@ class UserController extends Controller
     }
 
     public function index(){
-
-        $list = User::orderByDesc('created_at')->paginate(8);
+        if (request()->filled('aranan')){
+            $aranan = request('aranan');
+            $list = User::where('namesurname', 'like', "%$aranan%")
+                ->orWhere('email', 'like', "%$aranan%" )
+                ->orderByAsc('created_at')
+                ->paginate(8);
+        }
+        else{
+        $list = User::orderBy('id','asc')->paginate(8);
+        }
         return view('admin.user.index',compact('list'));
+
     }
 
     public function form($id = 0)
@@ -94,17 +103,14 @@ class UserController extends Controller
     }
 
     public function delete($id){
-        $data = User::find($id);
-        $data->delete();
-
-        if ($data) {
-            return redirect('admin/user');
-        }
+        $data = User::where('id',$id)->delete();
 
         return redirect()
-            ->route('admin/user')
-            ->with('message', 'Kayıt Silindi')
+            ->route('admin.user')
+            ->with('message', 'Deleted')
             ->with('message_type', 'success');
+
+
     }
 
 

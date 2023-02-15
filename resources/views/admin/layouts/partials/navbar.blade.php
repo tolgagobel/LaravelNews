@@ -25,10 +25,10 @@
                     <a href="#">Settings</a>
                 </li>
                 <li>
-                    <a href="#">Products</a>
+                    <a href="{{ route('admin.product') }}">Products</a>
                 </li>
                 <li>
-                    <a href="#">Categories</a>
+                    <a href="{{ route('admin.category') }}">Categories</a>
                 </li>
                 <li>
                     <a href="{{ route('admin.user') }}">Users</a>

@@ -11,10 +11,9 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use SoftDeletes;
     protected $table='users';
 
-    protected $fillable = ['namesurname','email','password','activation_key','active'];
+    protected $fillable = ['namesurname','email','password','phone','activation_key','active'];
     protected $hidden = ['password','activation_key',];
 
 

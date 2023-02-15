@@ -6,9 +6,9 @@
     <h1 class="sub-header">Kullanıcı Listesi</h1>
     <div class="well">
         <div class="btn-group pull-right" role="group" aria-label="Basic example">
-            <a href="{{ route('admin.user.new') }}" class="btn btn-primary">Ekle</a>
+            <a href="{{ route('admin.product.new') }}" class="btn btn-primary">Ekle</a>
         </div>
-        <form method="post" action="{{ route('admin.user') }}" class="form-inline">
+        <form method="post" action="{{ route('admin.product') }}" class="form-inline">
             {{ csrf_field() }}
 
             <div class="form-group">
@@ -16,7 +16,7 @@
                 <input type="text" class="form-control-sm" name="aranan" id="aranan" placeholder="Ara..">
             </div>
             <button type="submit" class="btn btn-primary">Ara</button>
-            <a href="{{ route('admin.user') }}" class="btn btn-primary">Temizle</a>
+            <a href="{{ route('admin.product') }}" class="btn btn-primary">Temizle</a>
         </form>
     </div>
 

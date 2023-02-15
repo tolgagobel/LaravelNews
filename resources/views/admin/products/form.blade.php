@@ -30,12 +30,6 @@
                     <input type="email" name="email" class="form-control" id="email" placeholder="Email" value="{{ old('email', $entry->email) }}">
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" name="password" class="form-control" id="password" placeholder="Şifre">
-                </div>
-            </div>
         </div>
         <div class="row">
             <div class="col-md-12">

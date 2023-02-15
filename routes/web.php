@@ -19,11 +19,25 @@ Route::group(['prefix'=>'admin', 'namespace'=>'Admin'], function (){
         Route::get('/main',[\App\Http\Controllers\Admin\MainController::class,'index'])->name('admin.main');
 
         Route::group(['prefix' => 'user'], function (){
-            Route::get('/',[\App\Http\Controllers\Admin\UserController::class,'index'])->name('admin.user');
+            Route::match(['get','post'],'/',[\App\Http\Controllers\Admin\UserController::class,'index'])->name('admin.user');
             Route::get('/new',[\App\Http\Controllers\Admin\UserController::class, 'form'])->name('admin.user.new');
             Route::get('/update/{id}',[\App\Http\Controllers\Admin\UserController::class, 'form'])->name('admin.user.update');
             Route::post('/save/{id?}',[\App\Http\Controllers\Admin\UserController::class, 'save'])->name('admin.user.save');
             Route::get('/delete/{id?}',[\App\Http\Controllers\Admin\UserController::class, 'delete'])->name('admin.user.delete');
+        });
+        Route::group(['prefix' => 'category'], function (){
+            Route::match(['get','post'],'/',[\App\Http\Controllers\Admin\CategoryController::class,'index'])->name('admin.category');
+            Route::get('/new',[\App\Http\Controllers\Admin\CategoryController::class, 'form'])->name('admin.category.new');
+            Route::get('/update/{id}',[\App\Http\Controllers\Admin\CategoryController::class, 'form'])->name('admin.category.update');
+            Route::post('/save/{id?}',[\App\Http\Controllers\Admin\CategoryController::class, 'save'])->name('admin.category.save');
+            Route::get('/delete/{id?}',[\App\Http\Controllers\Admin\CategoryController::class, 'delete'])->name('admin.category.delete');
+        });
+        Route::group(['prefix' => 'product'], function (){
+            Route::match(['get','post'],'/',[\App\Http\Controllers\Admin\ProductController::class,'index'])->name('admin.product');
+            Route::get('/new',[\App\Http\Controllers\Admin\ProductController::class, 'form'])->name('admin.product.new');
+            Route::get('/update/{id}',[\App\Http\Controllers\Admin\ProductController::class, 'form'])->name('admin.product.update');
+            Route::post('/save/{id?}',[\App\Http\Controllers\Admin\ProductController::class, 'save'])->name('admin.product.save');
+            Route::get('/delete/{id?}',[\App\Http\Controllers\Admin\ProductController::class, 'delete'])->name('admin.product.delete');
         });
     });
 
