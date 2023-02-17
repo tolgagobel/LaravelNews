@@ -17,6 +17,6 @@ class Product extends Model
     }
 
     public function product(){
-        return $this->hasOne(ProductDetail::class);
+        return $this->hasOne(ProductDetail::class)->withDefault();
     }
 }

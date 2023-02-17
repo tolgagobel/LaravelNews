@@ -12,6 +12,8 @@ class ProductDetail extends Model
     protected $table = 'product_details';
     public $timestamps = false;
 
+    protected $guarded = [];
+
     public function product(){
         return $this->belongsTo(Product::class);
     }

@@ -33,7 +33,8 @@ class ProductTableSeeder extends Seeder
                 'goster_gunun_firsati' => rand(0,1),
                 'goster_one_cikan' => rand(0,1),
                 'goster_cok_satan' => rand(0,1),
-                'goster_indirimli' => rand(0,1)
+                'goster_indirimli' => rand(0,1),
+                'product_img' =>rand(0,1)
             ]);
         }
     }

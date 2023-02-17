@@ -75,10 +75,10 @@ class UserController extends Controller
     public function save($id = 0){
         $this->validate(request(), [
            'namesurname' => 'required',
-            'email' => 'required|email'
+            'email' => 'required|email',
         ]);
 
-        $data = request()->only('namesurname','email');
+        $data = request()->only('namesurname','email','phone');
         if (request()->filled('password'))
         {
             $data['password'] = Hash::make(request('password'));

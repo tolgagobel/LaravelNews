@@ -19,6 +19,7 @@ class CreateProductsTable extends Migration
             $table->string('product_name');
             $table->text('description')->nullable();
             $table->double('price')->default(0);
+            $table->string('product_img',50);
             $table->timestamps();
 
             $table->softDeletes()->nullable();

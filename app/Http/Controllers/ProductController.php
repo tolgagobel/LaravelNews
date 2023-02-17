@@ -16,7 +16,7 @@ class ProductController extends Controller
         $aranan = request()->input('aranan');
         $products = Product::where('product_name', 'like', "%$aranan%")
             ->orWhere('description', 'like', "%$aranan%")
-            ->  paginate(10);
+            ->paginate(10);
 
         request()->flash();
 

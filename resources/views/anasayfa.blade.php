@@ -30,7 +30,7 @@
                     </ol>
                     <div class="carousel-inner" role="listbox">
                         @foreach($product_slider as $key => $product)
-                        <div class="item {{$key == 0 ? 'active':''}}">
+                        <div class="item {{$key == 0 ? 'active' : ''}}">
                             <img src="../img/pizza.jpeg" style="width:800px;height:380px;"  alt="...">
                             <div class="carousel-caption">
                                 {{ $product->product->product_name }}
@@ -50,15 +50,17 @@
                 </div>
             </div>
             <div class="col-md-3">
+                @if (isset($product_gunun_firsati))
                 <div class="panel panel-default" id="sidebar-product">
                     <div class="panel-heading">Günün Fırsatı</div>
                     <div class="panel-body">
-                        <a href="{{ route('product', $product_gunun_firsati->slug) }}">
+                        <a href="{{ route('product', $product_gunun_firsati->slug ?? '') }}">
                             <img src="../img/pizza.jpeg" class="img-responsive">
                             {{ $product_gunun_firsati->product_name }}
                         </a>
                     </div>
                 </div>
+                @endif
             </div>
         </div>
     </div>
