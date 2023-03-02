@@ -14,25 +14,21 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Laravel Ecommerce</a>
+            <a class="navbar-brand" href="{{ route('admin.main') }}"> Sitesi</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li>
-                    <a href="{{ route('admin.main') }}">Login</a>
+                    <a href="{{ route('admin.product') }}">Ürün</a>
                 </li>
                 <li>
-                    <a href="#">Settings</a>
+                    <a href="{{ route('admin.category') }}">Kategoriler</a>
                 </li>
+                @if (auth('admin')->user()->hasRole('Admin'))
                 <li>
-                    <a href="{{ route('admin.product') }}">Products</a>
+                    <a href="{{ route('admin.user') }}">Kullanıcılar</a>
                 </li>
-                <li>
-                    <a href="{{ route('admin.category') }}">Categories</a>
-                </li>
-                <li>
-                    <a href="{{ route('admin.user') }}">Users</a>
-                </li>
+                @endif
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">

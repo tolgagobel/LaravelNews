@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -16,7 +17,7 @@ class UserController extends Controller
     }
 
     public function login(){
-        if (request()->isMethod('POST'))
+        if (request()->isMethod('post'))
         {
             $this->validate(request(), [
                 'email' => 'required|email',
@@ -57,7 +58,7 @@ class UserController extends Controller
                 ->paginate(8);
         }
         else{
-        $list = User::orderBy('id','asc')->paginate(8);
+        $list = User::with('roles')->orderBy('id','asc')->paginate(8);
         }
         return view('admin.user.index',compact('list'));
 
@@ -66,10 +67,11 @@ class UserController extends Controller
     public function form($id = 0)
     {
         $entry = new User;
+        $roles =Role::all();
         if ($id > 0){
             $entry = User::find($id);
         }
-        return view('admin.user.form',compact('entry'));
+        return view('admin.user.form',compact('entry','roles'));
     }
 
     public function save($id = 0){
@@ -78,22 +80,26 @@ class UserController extends Controller
             'email' => 'required|email',
         ]);
 
-        $data = request()->only('namesurname','email','phone');
+        $data = request()->only('namesurname','email','phone','role');
         if (request()->filled('password'))
         {
             $data['password'] = Hash::make(request('password'));
         }
             $data['active'] = request()->has('active') && request('active') == 1 ? 1 : 0;
             $data['admin'] = request()->has('admin') && request('admin') == 1 ? 1 : 0;
+        $roles = Role::where('id', $id)->pluck('id')->toArray();
 
         if ($id > 0)
         {
             $entry =User::where('id', $id)->firstOrFail();
             $entry->update($data);
+            $entry->roles()->sync($roles);
+
         }
         else
         {
             $entry = User::create($data);
+            $entry->roles()->sync($roles);
         }
 
         return redirect()

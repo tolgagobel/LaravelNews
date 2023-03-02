@@ -38,7 +38,7 @@ class UserController extends Controller
     }
 
     public function signup_form(){
-        return view('kullanici.kaydol');
+        return view('admin.signup');
     }
 
     public function signup(){

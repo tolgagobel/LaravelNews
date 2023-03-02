@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductDetail;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
@@ -42,16 +43,22 @@ class ProductController extends Controller
     public function save($id = 0)
     {
         $this->validate(request(), [
-            'product_name' => 'required',
-            'slug' => [
-                'required',
-                Rule::unique('products')->ignore($id)
-            ]
+            'product_name' => 'required'
+
         ]);
         $data = request()->only('product_name','slug','description','slug');
-        if (!request()->filled('slug'))
-            $data['slug'] = str_slug(request('product_name'));
 
+        /*if ($id == 0)
+            $data['user_id'] = auth()->user()->user_id;*/
+
+        $data['user_id'] = request()->input('user_id');
+        $data['active'] = request()->has('active') && request('active') == 1 ? 1 : 0;
+
+
+        if (!request()->filled('slug')) {
+            $data['slug'] = Str::slug(request('product_name'));
+            request()->merge(['slug' => $data['slug']]);
+        }
         $findSlug = Product::whereSlug($data['slug']);
         if ($id > 0) $findSlug->where('id', '!=', $id);
         if ($findSlug->count()>0)
@@ -59,7 +66,10 @@ class ProductController extends Controller
                 ->withInput()
                 ->withErrors(['slug' => 'Slug değeri daha önceden kayıtlı']);
 
-        $data_detay = request()->only('goster_slider','goster_gunun_firsati','goster_one_cikan','goster_cok_satan','goster_indirimli');
+        $data_detay = ['goster_slider' => false,'goster_gunun_firsati' => false,'goster_one_cikan' => false,'goster_cok_satan' => false,'goster_indirimli' => false];
+        collect($data_detay)->each(function ($key, $value) use (&$data_detay) {
+            if (request()->has($value)) $data_detay[$value] = true;
+        });
         $categories = request('categories');
         if ($id > 0)
         {
@@ -89,7 +99,7 @@ class ProductController extends Controller
 
             if ($product_img->isValid())
             {
-                $product_img->move(public_path('images'),$filename);
+                $product_img->move(public_path('/backend/images/'),$filename);
 
                 ProductDetail::updateOrCreate(
                     ['product_id' =>$entry->id ],

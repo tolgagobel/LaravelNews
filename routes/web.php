@@ -42,8 +42,14 @@ Route::group(['prefix'=>'admin', 'namespace'=>'Admin'], function (){
     });
 
 });
+Route::group(['middleware' => ['auth']], function() {
+    Route::resource('roles', RoleController::class);
+});
 
 Route::get('/',[MainController::class,'index'])->name('main');
+Route::get("/tail", function(){
+    return view("tail");
+});
 
 Route::get('/category/{slug_categoryname}',[CategoryController::class,'index'])->name('category');
 
@@ -64,8 +70,6 @@ Route::group(['middleware' => 'auth'], function (){
     Route::get('/orders',[OrderController::class,'index'])->name('orders');
     Route::get('/orders/{id}',[OrderController::class,'detail'])->name('orders');
 });
-
-
 
 Route::get('/user/login',[UserController::class,'login_form'])->name('user.login');
 Route::post('/user/login',[UserController::class,'login']);

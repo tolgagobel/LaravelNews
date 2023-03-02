@@ -10,7 +10,7 @@
         <div class="row">
             <div class="col-md-3">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Categories</div>
+                    <div class="panel-heading text-red-700 font-semibold">Categories</div>
                     <div class="list-group categories">
                         @foreach($categories as $category)
                         <a href="{{ route('category', $category->slug) }}" class="list-group-item">
@@ -30,8 +30,8 @@
                     </ol>
                     <div class="carousel-inner" role="listbox">
                         @foreach($product_slider as $key => $product)
-                        <div class="item {{$key == 0 ? 'active' : ''}}">
-                            <img src="../img/pizza.jpeg" style="width:800px;height:380px;"  alt="...">
+                        <div class="item {{$key == 0 ? 'active':''}}">
+                            <img src="{{asset('images/'.$product->product_img)}}" alt="" title=""></a>
                             <div class="carousel-caption">
                                 {{ $product->product->product_name }}
                             </div>
@@ -55,7 +55,7 @@
                     <div class="panel-heading">Günün Fırsatı</div>
                     <div class="panel-body">
                         <a href="{{ route('product', $product_gunun_firsati->slug ?? '') }}">
-                            <img src="../img/pizza.jpeg" class="img-responsive">
+                            <img src="{{ $product_gunun_firsati->product->product_img !=null ? asset('images/'. $product_gunun_firsati->product->product_img) : '' }}" class="img-responsive">
                             {{ $product_gunun_firsati->product_name }}
                         </a>
                     </div>

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use Illuminate\Support\Str;
+
 
 class CategoryController extends Controller
 {
@@ -36,7 +38,7 @@ class CategoryController extends Controller
         if ($id > 0){
             $entry = Category::find($id);
         }
-        $category = Category::all();
+        $category = Category::orderBy('created_at','asc')->get();
         return view('admin.category.form',compact('entry','category'));
     }
 
@@ -46,8 +48,16 @@ class CategoryController extends Controller
             'slug' => (request('original_slug') != request('slug') ? 'unique:category,slug' : '')
         ]);
         $data = request()->only('category_name','slug','up_id');
-        if (!request()->filled('slug'))
-            $data['slug'] = str_slug(request('category_name'));
+
+        $data['up_id']=request()->input('up_id');
+
+        if (!request()->filled('slug')) {
+            $data['slug'] = Str::slug(request('category_name'));
+            request()->merge(['slug' => $data['slug']]);
+        }else{
+            $data['slug'] = Str::slug(request('category_name'));
+            request()->merge(['slug' => $data['slug']]);
+        }
 
         if (Category::whereSlug($data['slug'])->count()>0)
             return back()

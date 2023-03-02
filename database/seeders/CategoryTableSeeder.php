@@ -16,20 +16,19 @@ class CategoryTableSeeder extends Seeder
     public function run()
     {
         $categories = [
-            ['category_name' => 'Electronic' , 'slug' => 'electronic', 'categories' => [
-                ['category_name' => 'Computer/Tablet' , 'slug' => 'computer/tablet'],
-                ['category_name' => 'Phone' , 'slug' => 'phone'],
-                ['category_name' => 'Television' , 'slug' => 'television']
+          /*  ['category_name' => 'Siyaset' , 'slug' => 'siyaset', 'categories' => [
+              //  ['category_name' => 'Computer/Tablet' , 'slug' => 'computer/tablet'],
+                //['category_name' => 'Phone' , 'slug' => 'phone'],
+                //['category_name' => 'Television' , 'slug' => 'television']
             ]],
-            ['category_name' => 'Book' , 'slug' => 'book', 'categories' => [
-                ['category_name' => 'Literature' , 'slug' => 'literature'],
-                ['category_name' => 'Novels' , 'slug' => 'novels']
-            ]],
-            ['category_name' => 'Magazine' , 'slug' => 'magazine'],
-            ['category_name' => 'Furniture' , 'slug' => 'furniture'],
-            ['category_name' => 'Decoration' , 'slug' => 'decoration'],
-            ['category_name' => 'Cosmetic' , 'slug' => 'cosmetic'],
-            ['category_name' => 'Clothing and Fashion' , 'slug' => 'clothing and fashion']
+            ['category_name' => 'Ekonomi' , 'slug' => 'ekonomi', 'categories' => [
+                //  ['category_name' => 'Literature' , 'slug' => 'literature'],
+                //   ['category_name' => 'Novels' , 'slug' => 'novels']
+            ]],*/
+            ['category_name' => 'Siyaset' , 'slug' => 'siyaset'],
+            ['category_name' => 'Ekonomi' , 'slug' => 'ekonomi'],
+            ['category_name' => 'Magazin' , 'slug' => 'magazin'],
+
         ];
 
         foreach($categories as $category) {
@@ -38,14 +37,6 @@ class CategoryTableSeeder extends Seeder
             ], [
                 'category_name' => $category['category_name']
             ]);
-            foreach($category as $sub_category) {
-                Category::firstOrCreate([
-                    'slug' => $sub_category,
-                    'up_id' => $cat->id
-                ], [
-                    'category_name' => $sub_category,
-                ]);
-            }
         }
     }
 }
